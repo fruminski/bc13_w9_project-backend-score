@@ -1,12 +1,11 @@
 import { query } from "express";
 import express from "express";
 import morgan from "morgan"
-const router = express.Router();
 
-
+import {router} from './routes/index.js'
 
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.port || 3001;
 
 app.use(morgan("dev"));
 app.use(express.static("public"));
