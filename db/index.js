@@ -1,11 +1,10 @@
-const { Pool } = require("pg");
+import PG from 'pg'
+const Pool = PG.Pool;
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES,
 });
 
-module.exports = {
-  query: function (text, params) {
-    return pool.query(text, params);
-  },
-};
+export function query(text, params) {
+  return pool.query(text, params);
+}

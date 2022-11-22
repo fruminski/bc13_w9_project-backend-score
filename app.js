@@ -1,7 +1,6 @@
 import { query } from "express";
 import express from "express";
 import morgan from "morgan"
-
 import {router} from './routes/index.js'
 
 const app = express();
