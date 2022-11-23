@@ -28,7 +28,7 @@ API INTERFACE:
 | ------------------------- | ----------------------------------- | --------------- | ----------------------------------------------------- |
 | GET /apis/                | none                                | 200             | { success: true, payload: an array of api objects}    | ⚽️
 | POST /apis/               | { api_name, api_url, tags, doclink }| 201             | { success: true, payload: newly created api object }  | ⚽️
-| POST /apis/               | Missing/invalid request body        | 400             | { success: false, error: any string }                 |
+| POST /apis/               | Missing/invalid request body        | 400             | { success: false, error: any string }                 | ⚽️
 | DELETE /apis/some_id      | none                                | 200             | { success: true, payload: deleted api object}         |
 | PATCH /apis/some_id       | Parameters ** probably unnecessary  | 201             | { success: true, payload: updated api object}         |
 |-------------------------------------------------------------------------------------------------------------------------------------------|

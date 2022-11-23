@@ -11,11 +11,16 @@ router.get("/", async function (req, res){
 })
 
 router.post("/", async function(req, res){
-    console.log("req.body: ",req.body);
-    if(req.body == undefined ) { return res.status(400).json({success:false})};
+
+    /* test for empty body */
+    if(JSON.stringify(req.body) === '{}') {
+        res.status(400);
+        return res.json({success:false});
+    }
     const result = await createApi(req.body);
-    return res.status(201).json({success:true, payload: result})
-})
+    return res.json({success:true, payload: result})
+});
+
 
 
 
