@@ -22,12 +22,12 @@ router.post("/", async function(req, res){
 });
 
 router.delete("/", async function(req, res){
-    console.log(req.body.api_url)
-const result = await deleteApi(req.body.api_url);
-//if(JSON.stringify(req.body)=== '{}') {
-  //  res.status(400);
-    return res.json({success:true, payload: result})
-//}
+    console.log("router.delete(): req.body.api_url: ", req.body.api_url)
+    const result = await deleteApi(req.body.api_url);
+    if(JSON.stringify(req.body)=== '{}') {
+        res.status(400);
+        return res.json({success:true, payload: result});
+    }
 });
 
 
