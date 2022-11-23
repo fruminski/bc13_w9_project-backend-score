@@ -1,5 +1,5 @@
 import express from "express";
-import { createApi, getApis } from "../models/index.js";
+import { createApi, getApis, deleteApi } from "../models/index.js";
 const router = express.Router();
 
 router.get("/", async function (req, res){
@@ -21,6 +21,14 @@ router.post("/", async function(req, res){
     return res.json({success:true, payload: result})
 });
 
+router.delete("/", async function(req, res){
+    console.log(req.body.api_url)
+const result = await deleteApi(req.body.api_url);
+//if(JSON.stringify(req.body)=== '{}') {
+  //  res.status(400);
+    return res.json({success:true, payload: result})
+//}
+});
 
 
 
