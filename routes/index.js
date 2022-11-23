@@ -11,7 +11,8 @@ router.get("/", async function (req, res){
 })
 
 router.post("/", async function(req, res){
-    if(req.body == undefined) { return res.status(400).json({success:false})};
+    console.log("req.body: ",req.body);
+    if(req.body == undefined ) { return res.status(400).json({success:false})};
     const result = await createApi(req.body);
     return res.status(201).json({success:true, payload: result})
 })

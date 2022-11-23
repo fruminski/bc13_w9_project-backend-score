@@ -41,3 +41,4 @@ Morning Plan 23/11/22
 - Add the above function to getAllApis() so that we populate all the rows of API_RESPONSE ⚽️
 - Write the POST request with a missing body
 - Write the DELETE request
+- Test the output of response table with a non functioning URL in the apis table
