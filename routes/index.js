@@ -9,9 +9,14 @@ router.get("/", async function (req, res){
 })
 
 router.post("/", async function(req, res){
+    /* test for empty body */
+    if(JSON.stringify(req.body) === '{}') {
+        res.status(400);
+        return res.json({success:false});
+    }
     const result = await createApi(req.body);
     return res.json({success:true, payload: result})
-})
+});
 
 export {router};
 
