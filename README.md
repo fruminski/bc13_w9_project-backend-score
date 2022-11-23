@@ -32,3 +32,12 @@ API INTERFACE:
 | DELETE /apis/some_id      | none                                | 200             | { success: true, payload: deleted api object}         |
 | PATCH /apis/some_id       | Parameters ** probably unnecessary  | 201             | { success: true, payload: updated api object}         |
 |-------------------------------------------------------------------------------------------------------------------------------------------|
+
+- Write functions/add the functionality to populate the API_RESPONSE table
+
+Morning Plan 23/11/22
+
+- Write SELECT statements to update the API_RESPONSE with sample JSON data ⚽️ , GET request true/false boolean ⚽️ , response code ⚽️ , (response body?) wrapped in function
+- Add the above function to getAllApis() so that we populate all the rows of API_RESPONSE ⚽️
+- Write the POST request with a missing body
+- Write the DELETE request
