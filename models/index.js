@@ -25,6 +25,9 @@ export async function getApis() {
 
 /* Create a new API entry */
 export async function createApi(api) {
+    if(api.api_url.length <= 0 || api.api_name.length <= 0){ 
+        return undefined;
+    }
     const response = await query(`INSERT INTO API_LIST (api_name, api_url, tags, doclink) VALUES ($1, $2, $3, $4) RETURNING *`, [api.api_name, api.api_url, api.tags, api.doclink]);
     const response2 = await query(`INSERT INTO API_RESPONSE (api_id) VALUES ($1) RETURNING *`,[response.rows[0].api_id]);
     return response.rows[0];
@@ -34,13 +37,13 @@ export async function createApi(api) {
 export async function updateApiResponse(id, json, get_success, response_code) {
     //console.log(`response ${response_code}`);
     //console.log(`id ${id}`);
-    const response = await query(`UPDATE API_RESPONSE SET json=$1, get=$2, response_code=$3 WHERE api_id=$4`, [id, json, get_success, response_code]);
+    const response = await query(`UPDATE API_RESPONSE SET json=$1, get=$2, response_code=$3 WHERE api_id=$4 RETURNING *`, [id, json, get_success, response_code]);
+    return response.rows;
 }
 
 //delete from an entry from both tables
-export async function deleteApi(url){
-    console.log(`deleteApi(${url})`);
-
-    let myq = `DELETE FROM API_LIST WHERE api_url = ${url} RETURNING *`;
-    const response = await query(myq);
+export async function deleteApi(id){
+    console.log(`deleteApi(${id})`);
+    const response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
+    return response.rows;
 }
