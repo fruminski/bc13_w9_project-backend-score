@@ -48,7 +48,9 @@ export async function updateApiResponse(id, json, get_success, response_code, re
 
 //delete from an entry from both tables
 export async function deleteApi(id){
+    let response = await query("DELETE FROM api_response WHERE api_id=$1 RETURNING *", [id]);
     console.log(`deleteApi(${id})`);
-    const response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
+    response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
+
     return response.rows;
 }
