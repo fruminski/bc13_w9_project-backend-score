@@ -39,7 +39,10 @@ Morning Plan 23/11/22
 
 - Write SELECT statements to update the API_RESPONSE with sample JSON data ⚽️ , GET request true/false boolean ⚽️ , response code ⚽️ , (response body?) wrapped in function
 - Add the above function to getAllApis() so that we populate all the rows of API_RESPONSE ⚽️
-- Write the POST request with a missing body
+
+Morning Plan 24/11/22
+
+- Error handling for async functions - particularly POST (Missing body, timeouts, bad URL etc)
 - Write the DELETE request
 - Test the output of response table with a non functioning URL in the apis table
 
