@@ -4,7 +4,7 @@ import morgan from "morgan"
 import {router} from './routes/index.js'
 import cors from 'cors'
 
-const app = express();
+export const app = express();
 const PORT = process.env.port || 3001;
 
 app.use(cors());

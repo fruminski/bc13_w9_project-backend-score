@@ -1,7 +1,7 @@
 import PG from 'pg'
 const Pool = PG.Pool;
 
-const pool = new Pool({
+export const pool = new Pool({
   connectionString: process.env.POSTGRES,
 });
 
