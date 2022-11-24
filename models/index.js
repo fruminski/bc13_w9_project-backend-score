@@ -6,21 +6,37 @@ export async function getApis() {
     const response = await query(`SELECT * FROM API_LIST INNER JOIN API_RESPONSE ON api_list.api_id=api_response.api_id`);
 
     let api;
+    let json;
 
     for(api of response.rows) {
-      //  api.json = response.json(response);
-       // console.log("api ",api);
+
         let get_success = false;
-        const fetchResponse = await fetch(api.api_url);
-        const json  = await fetchResponse.json();
-        if(json != undefined) { get_success = true; } // not very good
-      //  console.log("fetch: ", fetchResponse);
-      //  console.log("THE DATA: ", json);
-        updateApiResponse(json, get_success, fetchResponse.status, api.api_id);
+        //  
+        let fetchResponse = await fetch(api.api_url)
+        .then((fetchResponse) => {
+            if(fetchResponse.ok) return fetchResponse
+            else if (!fetchResponse.ok) return fetchResponse
+            else throw new Error("Status code error: " + res.status)
+        })
+        .catch(err=>console.log('error log',err));
+        
+        console.log('fetchResponse',fetchResponse)
+        if (fetchResponse !== undefined) {
+           json  = await fetchResponse.json();
+        } else {json = 'Error'
+        fetchResponse = {}
+        fetchResponse.status = false  
+        }      
+        console.log('id',api.api_id,'json', json,'get', get_success,'fetch status', fetchResponse.status)
+            // console.log(data);
+        updateApiResponse( api.api_id, json, get_success, fetchResponse.status);
+        
+        // if(json != undefined) { get_success = true; } // not very good
+        
     }
 
     const updatedResponse = await query(`SELECT * FROM API_LIST INNER JOIN API_RESPONSE ON api_list.api_id=api_response.api_id`);
-    return response.rows;
+    return updatedResponse.rows;
 }
 
 /* Create a new API entry */
