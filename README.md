@@ -44,4 +44,13 @@ Morning Plan 24/11/22
 
 - Error handling for async functions - particularly POST (Missing body, timeouts, bad URL etc)
 - Write the DELETE request
-- Write some test functions with jest
+- Test the output of response table with a non functioning URL in the apis table
+
+
+Morning Plan 24/11/22:
+-Handle errors-
+    - If a url times out, server crashes - catch timeout and send error message
+    - If API endpoint doesn't respond with JSON format, determine if JSON & respond with error message if not
+-Write tests - using Jest & supertest
+    - Unit tests for each route
+    - Unit tests for the models   

@@ -8,19 +8,40 @@ export async function getApis() {
     let api;
 
     for(api of response.rows) {
-      //  api.json = response.json(response);
-       // console.log("api ",api);
-        let get_success = false;
-        const fetchResponse = await fetch(api.api_url);
-        const json  = await fetchResponse.json();
-        if(json != undefined) { get_success = true; } // not very good
-      //  console.log("fetch: ", fetchResponse);
-      //  console.log("THE DATA: ", json);
-        updateApiResponse(json, get_success, fetchResponse.status, api.api_id);
+        getApi(api);
     }
 
+
     const updatedResponse = await query(`SELECT * FROM API_LIST INNER JOIN API_RESPONSE ON api_list.api_id=api_response.api_id`);
-    return response.rows;
+    return updatedResponse.rows;
+}
+
+async function getApi(api) {
+    console.log("getApi()");
+    let json;
+    let status;
+    let get_success = false;
+    
+    let fetchResponse = await fetch(api.api_url);
+
+    /*
+    .then((fetchResponse) => {
+        if(fetchResponse.ok) return fetchResponse
+        else if (!fetchResponse.ok) return fetchResponse
+        else throw new Error("Status code error: " + res.status)
+    })
+    .catch(err=>console.log('error log',err)); */
+    
+    //console.log('fetchResponse',fetchResponse)
+    if (fetchResponse !== undefined) {
+        try {
+            JSON.parse(fetchResponse);
+        } catch (e) {
+            updateApiResponse(api.api_id, false, false, 404, false);
+            return;
+        }
+        updateApiResponse(api.api_id, "", true, 200, true);
+    }
 }
 
 /* Create a new API entry */
@@ -34,10 +55,10 @@ export async function createApi(api) {
 }
 
 /* Update the API table */
-export async function updateApiResponse(id, json, get_success, response_code) {
+export async function updateApiResponse(id, json, get_success, response_code, response_status) {
     //console.log(`response ${response_code}`);
     //console.log(`id ${id}`);
-    const response = await query(`UPDATE API_RESPONSE SET json=$1, get=$2, response_code=$3 WHERE api_id=$4 RETURNING *`, [id, json, get_success, response_code]);
+    const response = await query(`UPDATE API_RESPONSE SET json=$1, get=$2, response_code=$3, response=$4 WHERE api_id=$5 RETURNING *`, [json, get_success, response_code, response_status, id]);
     return response.rows;
 }
 
