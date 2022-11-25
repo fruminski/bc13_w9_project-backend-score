@@ -8,7 +8,17 @@ export async function getApis() {
     let api;
 
     for(api of response.rows) {
-        getApi(api);
+        let fetchResponse = await fetch(api.api_url);
+        if (fetchResponse !== undefined) {
+            try {
+                const json = await fetchResponse.json()
+                console.log('parsedJSON',json)
+                updateApiResponse(api.api_id, json, true, 200, true);
+            } catch (e) {
+                updateApiResponse(api.api_id, {"status":"API down"}, false, 400, false);
+            }
+            
+        }
     }
 
 
@@ -16,33 +26,7 @@ export async function getApis() {
     return updatedResponse.rows;
 }
 
-async function getApi(api) {
-    console.log("getApi()");
-    let json;
-    let status;
-    let get_success = false;
-    
-    let fetchResponse = await fetch(api.api_url);
 
-    /*
-    .then((fetchResponse) => {
-        if(fetchResponse.ok) return fetchResponse
-        else if (!fetchResponse.ok) return fetchResponse
-        else throw new Error("Status code error: " + res.status)
-    })
-    .catch(err=>console.log('error log',err)); */
-    
-    //console.log('fetchResponse',fetchResponse)
-    if (fetchResponse !== undefined) {
-        try {
-            JSON.parse(fetchResponse);
-        } catch (e) {
-            updateApiResponse(api.api_id, false, false, 404, false);
-            return;
-        }
-        updateApiResponse(api.api_id, "", true, 200, true);
-    }
-}
 
 /* Create a new API entry */
 export async function createApi(api) {
@@ -64,7 +48,9 @@ export async function updateApiResponse(id, json, get_success, response_code, re
 
 //delete from an entry from both tables
 export async function deleteApi(id){
+    let response = await query("DELETE FROM api_response WHERE api_id=$1 RETURNING *", [id]);
     console.log(`deleteApi(${id})`);
-    const response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
+    response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
+
     return response.rows;
 }
