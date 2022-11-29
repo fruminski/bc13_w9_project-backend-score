@@ -56,7 +56,7 @@ jest
 
 ## Running Tests
 
-As a group, we made several tests to make sure the code we wrote was running the way we wanted it to
+As a group, we made several tests to make sure the code we wrote was running the way we wanted it to. By using Jest, Supertest and also React test libraby, we were able to see if it was running successuly or not.
 
 To run tests, run the following command
 
