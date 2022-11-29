@@ -32,9 +32,9 @@ describe('POST Route Testing', ()=>{
 })
 
 describe('test the DELETE requests', ()=>{
-    // afterEach(() => {
-    //     return resetApisTable();
-    //   });
+    afterEach(() => {
+        return resetApisTable();
+      });
     test('Send DELETE request', async ()=>{
         const response = await request(app).delete('/api/50')
         console.log("response body:", response.body)
@@ -56,6 +56,14 @@ describe('test the DELETE requests', ()=>{
             }
           ]})
     })
+
+    test('Send DELETE request', async ()=>{
+        const response = await request(app).delete('/api/')
+        console.log("response body:", response.body)
+        expect(response.status).toEqual(404)
+        
+    })
+
 })
 
 
