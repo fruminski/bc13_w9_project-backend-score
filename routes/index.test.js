@@ -15,6 +15,10 @@ test('Send GET request to database to return all an array APIs', async () =>{
 
 }, 10000)
 
+
+
+
+
 afterAll(() => {
     pool.end()
  })
