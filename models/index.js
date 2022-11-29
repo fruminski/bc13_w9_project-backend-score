@@ -51,6 +51,6 @@ export async function deleteApi(id){
     let response = await query("DELETE FROM api_response WHERE api_id=$1 RETURNING *", [id]);
     console.log(`deleteApi(${id})`);
     response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
-
+    console.log('response:', response.rows)
     return response.rows;
 }

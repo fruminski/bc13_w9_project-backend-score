@@ -34,13 +34,12 @@ router.delete("/:id", async function (req, res) {
   //     return res.json({success: false, payload: "Don't be a dingleberry... use param or json body"});
   // }
   const result = await deleteApi(req.params.id);
-
-  if (JSON.stringify(req.body) === "{}") {
-    res.status(400);
-    return res.json({ success: true, payload: result });
+  console.log(result)
+  if (result.length !== 0) {
+    return res.status(200).json({ success: true, payload: result });
   } else {
-    res.status(201);
-    return res.json({ success: true, payload: result });
+    return res.status(404).json({ success: false, payload: "please enter an id that exists" });
+    
   }
 });
 
