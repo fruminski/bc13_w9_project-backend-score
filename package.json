@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --setupFiles dotenv/config",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --setupFiles dotenv/config jest --detectOpenHandles --forceExit",
     "start": "node -r dotenv/config app.js",
     "dev": "nodemon -r dotenv/config app.js",
     "db-create": "node -r dotenv/config ./db/scripts/createTables.js",

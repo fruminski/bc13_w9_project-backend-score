@@ -24,7 +24,7 @@ router.post("/", async function (req, res) {
     res.status(400);
     return res.json({ success: false });
   }
-  return res.json({ success: true, payload: result });
+  return res.status(201).json({ success: true, payload: result });
 });
 
 router.delete("/:id", async function (req, res) {
