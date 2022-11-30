@@ -40,8 +40,6 @@ export async function createApi(api) {
 
 /* Update the API table */
 export async function updateApiResponse(id, json, get_success, response_code, response_status) {
-    //console.log(`response ${response_code}`);
-    //console.log(`id ${id}`);
     const response = await query(`UPDATE API_RESPONSE SET json=$1, get=$2, response_code=$3, response=$4 WHERE api_id=$5 RETURNING *`, [json, get_success, response_code, response_status, id]);
     return response.rows;
 }
@@ -49,8 +47,6 @@ export async function updateApiResponse(id, json, get_success, response_code, re
 //delete from an entry from both tables
 export async function deleteApi(id){
     let response = await query("DELETE FROM api_response WHERE api_id=$1 RETURNING *", [id]);
-    console.log(`deleteApi(${id})`);
     response = await query("DELETE FROM API_LIST WHERE api_id=$1 RETURNING *", [id]);
-    console.log('response:', response.rows)
     return response.rows;
 }
